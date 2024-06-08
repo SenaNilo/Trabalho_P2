@@ -1,9 +1,8 @@
-// Could be GET or POST/PUT/PATCH/DELETE
+// Mana, vamo usar o dos posts pdp? é pique twitter, vo fzer o visualizar primeiro(pra aparecer na tela bonitinho)
 function json(){
-    fetch('https://dummyjson.com/products/1')
+    fetch('https://dummyjson.com/posts')
         .then(res => res.json())
-        .then(x => jsonTabela(x))
-        .then(console.log);
+        .then(x => console.log(x.posts[0]))
 }
 
 function jsonTabela(json){
