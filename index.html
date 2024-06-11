@@ -31,11 +31,12 @@
 
     <!-- //Visualizar posts -->
     <div class="visualizar p-2">
-        <h2>Carregar Posts (Visualizar)</h2>
+        <h2>Carregar Posts</h2>
+        <button id="visualizar" class="btn btn-secondary" onclick="visualizar()">VISUALIZAR</button>
     </div>
-    <div class="posts container bg-secondary rounded text-light"> <!-- // o * vai ser onde vao ficar os campos -->
-        <div class="post container p-3">
-            <!-- <span>*id</span><span>*UserId</span> n sei se precisa ta aqui -->
+    <div id="posts" style="display: flex;" class="posts container flex-column-reverse"> <!-- // o * vai ser onde vao ficar os campos -->
+        <div class="post container p-3 bg-secondary rounded text-light">
+            <span style="display: none;">*id</span><span style="display: none;">*UserId</span> n sei se precisa ta aqui
             <h3>*title</h3>
             <hr>
             <p>*body</p>

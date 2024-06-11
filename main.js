@@ -1,18 +1,94 @@
+Object.defineProperty(Node.prototype, 'appendChildren', {
+    configurable: true,
+    value: function(...children) {
+        for (const child of children) {
+            this.appendChild(child);
+        }
+
+        return this;
+    }
+}); //Criacao de uma funcao para um apendChildren com mais de um parametro
+
 // Mana, vamo usar o dos posts pdp? é pique twitter, vo fzer o visualizar primeiro(pra aparecer na tela bonitinho)
-function json(){
-    fetch('https://dummyjson.com/posts')
+function visualizar(){
+    fetch('https://dummyjson.com/posts?limit=10')
         .then(res => res.json())
-        .then(x => console.log(x.posts[0]))
+        .then(json => visuTela(json.posts))
 }
 
-function jsonTabela(json){
-    let h2 = document.createElement("h2");
-    let p = document.createElement("p");
+function visuTela(posts){
+    console.log(posts);
+    let id = [];
+    let userId = [];
+    let tt = [];
+    let body = [];
+    let ps = [];
+    let tags = [] 
+    //reactions == likes: , dislikes: }
+    let reactions = [];
+    let likes = [];
+    let dislikes = [];
+    let views = [];
 
-    h2.innerHTML = json.title;
-    p.innerHTML = json.price;
+    //Icons 
+    let imgUp = document.createElement("img");
+    imgUp.style.width = "30px"; imgUp.style.margin = "0 7px";
+    imgUp.src = "img/thumbs-up-solid.svg";
+    let imgDown = document.createElement("img");
+    imgDown.style.width = "30px"; imgDown.style.margin = "0 7px";
+    imgDown.src = "img/thumbs-down-solid.svg";
 
-    document.body.appendChild(h2);
-    document.body.appendChild(p);
+    const divPosts = document.querySelector("#posts");
+    const divPost = []
+
+    for(let i = 0; i < posts.length; i++){
+        divPost[i] = document.createElement("div");
+        divPost[i].className = "post container p-3 bg-secondary rounded text-light mb-1";
+
+        id[i] = document.createElement("span");
+        id[i].style.display = "none";
+        id[i].id = posts[i].id; id[i].innerHTML = posts[i].id
+
+        userId[i] = document.createElement("span");
+        userId[i].style.display = "none";
+        userId[i].id = posts[i].userId; userId[i].innerHTML = posts[i].userId
+
+        tt[i] = document.createElement("h3");
+        tt[i].innerHTML = posts[i].title;
+
+        body[i] = document.createElement("p");
+        body[i].innerHTML = posts[i].body
+
+        ps[i] = document.createElement("p");
+        for(let t = 0; t < posts[i].tags.length; t++){
+            tags[t] = document.createElement("span");
+            tags[t].className = "badge text-bg-dark";
+            tags[t].innerHTML = posts[i].tags[t]
+            ps[i].appendChild(tags[t]);
+        }
+
+        reactions[i] = document.createElement("div");
+        reactions[i].className = "bottom d-flex justify-content-between";
+        //like
+        let span = document.createElement("span")
+        span.appendChild(imgUp);
+        likes[i] = posts[i].reactions.likes
+        span.innerHTML += likes[i];
+        
+        span.appendChild(imgDown);
+        dislikes[i] = posts[i].reactions.dislikes
+        span.innerHTML += dislikes[i];
+
+        let span2 = document.createElement("span");
+        span2.innerHTML += "views: " + posts[i].views;
+        reactions[i].appendChild(span);
+        reactions[i].appendChild(span2);
+
+        divPost[i].appendChildren(id[i], userId[i], tt[i], body[i], ps[i], reactions[i])
+
+        divPosts.appendChild(divPost[i]);
+    }
+
+    
 }
 /* { status: 'ok', method: 'GET' } */
