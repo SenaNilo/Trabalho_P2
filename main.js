@@ -41,17 +41,19 @@ function visuTela(posts){
     const divPosts = document.querySelector("#posts");
     const divPost = []
 
+    const btnDelete = []
+
     for(let i = 0; i < posts.length; i++){
         divPost[i] = document.createElement("div");
         divPost[i].className = "post container p-3 bg-secondary rounded text-light mb-1";
 
         id[i] = document.createElement("span");
         id[i].style.display = "none";
-        id[i].id = posts[i].id; id[i].innerHTML = posts[i].id
+        id[i].id = "postId" + posts[i].id; id[i].innerHTML = posts[i].id
 
         userId[i] = document.createElement("span");
         userId[i].style.display = "none";
-        userId[i].id = posts[i].userId; userId[i].innerHTML = posts[i].userId
+        userId[i].id = "userId" + posts[i].userId; userId[i].innerHTML = posts[i].userId
 
         tt[i] = document.createElement("h3");
         tt[i].innerHTML = posts[i].title;
@@ -84,11 +86,33 @@ function visuTela(posts){
         reactions[i].appendChild(span);
         reactions[i].appendChild(span2);
 
+        btnDelete[i] = document.createElement("button");
+        btnDelete[i].className = "btn btn-danger";
+        btnDelete[i].id = posts[i].id
+        btnDelete[i].innerHTML = "Deletar"
+
+        reactions[i].appendChild(btnDelete[i]);
+
         divPost[i].appendChildren(id[i], userId[i], tt[i], body[i], ps[i], reactions[i])
 
         divPosts.appendChild(divPost[i]);
     }
-
-    
+    for(let b = 0; b < btnDelete.length; b++){
+        btnDelete[b].setAttribute('onclick', 'deletar(' + btnDelete[b].id + ')');
+    }
 }
-/* { status: 'ok', method: 'GET' } */
+
+function deletar(postId){
+    var postDel = document.querySelector("span#postId" + postId);
+    console.log(postDel);
+    var id = postDel.innerHTML;
+
+    //Serve para pegar o pai
+    postDel.parentNode.style.display = "none"
+
+    fetch('https://dummyjson.com/posts/'+id, {
+        method: 'DELETE',
+      })
+      .then(res => res.json())
+      .then(console.log);
+}
