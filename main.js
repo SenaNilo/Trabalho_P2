@@ -123,7 +123,7 @@ function deletar(postId){
       .then(console.log);
 }
 
-function botao() {
+function botaoCriar() {
     var post = []; 
   
     const body = document.getElementById('body').value;
@@ -169,6 +169,45 @@ function initIdIncrementApi(){ //Puxa da api o ID final
 }
 function passarValorParaVariavel(total){ //Passa o valor do id para a variavel global
     idTotal = total;
+}
+
+function atualizar() { 
+    var postsAtt; 
+
+    const postId = document.getElementById('postId').value;
+    const bodyAtt = document.getElementById('bodyAtt').value;
+    const titleAtt = document.getElementById('titleAtt').value;
+    const tagsAtt = document.getElementById('tagsAtt').value;
+
+
+    /* updating title of post with id 1 */
+fetch(`https://dummyjson.com/posts/${postId}`, {
+    method: 'PUT', /* or PATCH */
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: titleAtt,
+      body: bodyAtt,
+      userId: 5,
+      tags: [ tagsAtt ],
+      id: postId
+    })
+  })
+  .then(res => res.json())
+  .then(console.log);
+
+  var objetodadosAtt = { 
+    id: postId, 
+    body: bodyAtt,  
+    reactions: {likes: 0, dislikes: 0}, 
+     tags: [ tags ],
+     title: titleAtt,
+     userId: 5, 
+     views: 3
+}; 
+console.log(objetodadosAtt)
+ 
+
+visuTela(postsAtt);
 }
 
 /* { status: 'ok', method: 'GET' } */
