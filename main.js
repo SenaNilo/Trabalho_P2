@@ -181,33 +181,49 @@ function atualizar() {
 
 
     /* updating title of post with id 1 */
-fetch(`https://dummyjson.com/posts/${postId}`, {
-    method: 'PUT', /* or PATCH */
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      title: titleAtt,
-      body: bodyAtt,
-      userId: 5,
-      tags: [ tagsAtt ],
-      id: postId
+    fetch(`https://dummyjson.com/posts/${postId}`, {
+        method: 'PUT', /* or PATCH */
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+        title: titleAtt,
+        body: bodyAtt,
+        userId: 5,
+        tags: [ tagsAtt ],
+        id: postId
+        })
     })
-  })
-  .then(res => res.json())
-  .then(console.log);
+    .then(res => res.json())
+    .then(console.log);
 
-  var objetodadosAtt = { 
-    id: postId, 
-    body: bodyAtt,  
-    reactions: {likes: 0, dislikes: 0}, 
-     tags: [ tags ],
-     title: titleAtt,
-     userId: 5, 
-     views: 3
-}; 
-console.log(objetodadosAtt)
- 
+    var objetodadosAtt = { 
+        id: postId, 
+        body: bodyAtt,  
+        reactions: {likes: 0, dislikes: 0}, 
+        tags: [ tags ],
+        title: titleAtt,
+        userId: 5, 
+        views: 3
+    }; 
 
-visuTela(postsAtt);
+    console.log(objetodadosAtt)
+    attVisu(postId, bodyAtt, titleAtt, tagsAtt);
 }
 
-/* { status: 'ok', method: 'GET' } */
+function attVisu(id, bodyAtt, titleAtt, tagAtt){
+    var idElement = document.querySelector("span#postId" + id);
+    var div = idElement.parentNode;
+
+    var body = div.querySelector("p");
+    var title = div.querySelector("h3");
+    var tags = div.querySelectorAll("span.badge");
+
+    body.innerHTML = bodyAtt;
+    title.innerHTML = titleAtt;
+
+    tags[0].innerHTML = tagAtt;
+    for(let i = 1; i < tags.length; i++){
+        tags[i].innerHTML = "";
+        tags[i].style.display = "none";
+
+    }
+}
