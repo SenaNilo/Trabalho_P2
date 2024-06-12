@@ -116,3 +116,49 @@ function deletar(postId){
       .then(res => res.json())
       .then(console.log);
 }
+
+function botao() {
+    var post = []; 
+  
+    const body = document.getElementById('body').value;
+    const title = document.getElementById('title').value;
+
+    fetch('https://dummyjson.com/posts/add', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          title: title,
+          userId: 5,
+          /* other post data */
+        })
+      })
+      .then(res => res.json())
+      .then(console.log);
+       // Obtém o total de posts existentes
+    
+            
+
+    var id = fodase();
+    const novoId = id + 1;
+
+
+      var objetodados = { 
+        id: novoId, 
+        body: body,  
+        reactions: {likes: 0, dislikes: 0}, 
+         tags: ['teste'],
+         title: title,
+         userId: 253, 
+         views: 0
+    }; 
+     post = [objetodados]; 
+    visuTela(post);
+}
+
+function fodase(){
+    return fetch('https://dummyjson.com/posts')
+    .then(res => res.json()).then(valor => valor.total)
+}
+
+
+/* { status: 'ok', method: 'GET' } */
