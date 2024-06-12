@@ -9,8 +9,13 @@ Object.defineProperty(Node.prototype, 'appendChildren', {
     }
 }); //Criacao de uma funcao para um apendChildren com mais de um parametro
 
-// Mana, vamo usar o dos posts pdp? é pique twitter, vo fzer o visualizar primeiro(pra aparecer na tela bonitinho)
+//Var globais
 var cont = 0;
+var idTotal = 0;
+var novoId = 0
+initIdIncrementApi();
+
+
 function visualizar(){
     fetch('https://dummyjson.com/posts?limit=10&skip=' + cont)
         .then(res => res.json())
@@ -106,7 +111,6 @@ function visuTela(posts){
 
 function deletar(postId){
     var postDel = document.querySelector("span#postId" + postId);
-    console.log(postDel);
     var id = postDel.innerHTML;
 
     //Serve para pegar o pai
@@ -125,6 +129,9 @@ function botao() {
     const body = document.getElementById('body').value;
     const title = document.getElementById('title').value;
     const tags = document.getElementById('tags').value;
+    // Obtém o total de posts existentes
+    novoId = idTotal + 1; //O "auto-increment do crud"
+    idTotal = novoId; //Colocar o novo ID incrementado como valor final
 
     fetch('https://dummyjson.com/posts/add', {
         method: 'POST',
@@ -133,21 +140,16 @@ function botao() {
           title: title,
           body: body,
           userId: 5,
-          tags: [ tags ]
+          tags: [ tags ],
+          id: novoId
           /* other post data */
         })
-      })
-      .then(res => res.json())
-      .then(console.log);
-       // Obtém o total de posts existentes
+    })
+    .then(res => res.json());
     
-            
-
-    var id = fodase();
-    const novoId = id + 1;
 
 
-      var objetodados = { 
+    var objetodados = { 
         id: novoId, 
         body: body,  
         reactions: {likes: 0, dislikes: 0}, 
@@ -161,10 +163,12 @@ function botao() {
     visuTela(post);
 }
 
-function fodase(){
-    return fetch('https://dummyjson.com/posts')
-    .then(res => res.json()).then(valor => valor.total)
+function initIdIncrementApi(){ //Puxa da api o ID final
+    fetch('https://dummyjson.com/posts')
+        .then(res => res.json()).then(valor => passarValorParaVariavel(valor.total))
 }
-
+function passarValorParaVariavel(total){ //Passa o valor do id para a variavel global
+    idTotal = total;
+}
 
 /* { status: 'ok', method: 'GET' } */

@@ -23,11 +23,28 @@
         - Usar o Fetch estilo monádico (Obrigatorio)
         - O projeto deve estar no github
         - (Extra) Subir no render.com
-
+        
         *Depois da prova iremos apresentar o trabalho a apresentacao será a navegação e uma pergunta para cada um do codigo
-     -->
-
-    <!-- Estrutuda dos Posts: id, title, body, reactions, tags, userId, views -->
+        -->
+        
+        <!-- Estrutuda dos Posts: id, title, body, reactions, tags, userId, views -->
+    
+    <!-- //Criar Posts -->
+    <div class="p-2">
+        <h2>Criar um Post</h2>
+        <form id="postForm">
+            <label for="body">Escreva o post</label>
+            <input type="text" id="body" name="body" required>
+            <br><br>
+            <label for="title">Titulo</label>
+            <input type="text" id="title" name="title" required>
+            <br><br>
+            <label for="tags">Tags</label>
+            <input type="text" id="tags" name="tags">
+            <br><br>
+            <button type="button" onclick="botao()">Publicar</button>
+        </form>
+    </div>
 
     <!-- //Visualizar posts -->
     <div class="visualizar p-2">
@@ -35,7 +52,7 @@
         <button id="visualizar" class="btn btn-secondary" onclick="visualizar()">VISUALIZAR</button>
     </div>
     <div id="posts" style="display: flex;" class="posts container flex-column-reverse"> <!-- // o * vai ser onde vao ficar os campos -->
-        <div class="post container p-3 bg-secondary rounded text-light">
+        <!-- <div class="post container p-3 bg-secondary rounded text-light">
             <span style="display: none;">*id</span><span style="display: none;">*UserId</span> 
             <h3>*title</h3>
             <hr>
@@ -49,21 +66,8 @@
                 <span>*views</span>
                 <button class="btn btn-danger">Deletar</button>
             </div>
-        </div>
-
+        </div> -->
     </div>
-    <h1>Criar um Post</h1>
-    <form id="postForm">
-        <label for="body">Escreva o post</label>
-        <input type="text" id="body" name="body" required>
-        <br><br>
-        <label for="title">Titulo</label>
-        <input type="text" id="title" name="title" required>
-        <br><br>
-        <label for="tags">Tags</label>
-        <input type="text" id="tags" name="tags">
-        <br><br>
-        <button type="button" onclick="botao()">Publicar</button>
-    </form>
+    
 </body>
 </html>
