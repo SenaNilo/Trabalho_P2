@@ -10,10 +10,12 @@ Object.defineProperty(Node.prototype, 'appendChildren', {
 }); //Criacao de uma funcao para um apendChildren com mais de um parametro
 
 // Mana, vamo usar o dos posts pdp? é pique twitter, vo fzer o visualizar primeiro(pra aparecer na tela bonitinho)
+var cont = 0;
 function visualizar(){
-    fetch('https://dummyjson.com/posts?limit=10')
+    fetch('https://dummyjson.com/posts?limit=10&skip=' + cont)
         .then(res => res.json())
         .then(json => visuTela(json.posts))
+    cont += 10;
 }
 
 function visuTela(posts){
@@ -122,13 +124,16 @@ function botao() {
   
     const body = document.getElementById('body').value;
     const title = document.getElementById('title').value;
+    const tags = document.getElementById('tags').value;
 
     fetch('https://dummyjson.com/posts/add', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           title: title,
+          body: body,
           userId: 5,
+          tags: [ tags ]
           /* other post data */
         })
       })
@@ -146,12 +151,13 @@ function botao() {
         id: novoId, 
         body: body,  
         reactions: {likes: 0, dislikes: 0}, 
-         tags: ['teste'],
+         tags: [ tags ],
          title: title,
-         userId: 253, 
+         userId: 5, 
          views: 0
     }; 
-     post = [objetodados]; 
+    post = [objetodados]; 
+
     visuTela(post);
 }
 
